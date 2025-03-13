@@ -1,0 +1,1 @@
+const openAIApiKey = 'APIKEY';
