@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart';
-
 import 'core/injection/app_dependencies.dart';
 import 'features/ranking/ui/screens/ranking_page.dart';
 

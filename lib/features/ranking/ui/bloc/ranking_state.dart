@@ -1,6 +1,5 @@
 part of 'ranking_bloc.dart';
 
-@immutable
 abstract class RankingState {}
 
 class RankingInitial extends RankingState {}
