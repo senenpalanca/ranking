@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/dimens.dart';
 import '../../domain/get_ranking_use_case.dart';
 import '../bloc/ranking_bloc.dart';
+import '../widgets/ranking_item_card.dart';
 
 class RankingPage extends StatelessWidget {
   const RankingPage({Key? key}) : super(key: key);
@@ -65,8 +66,23 @@ class _RankingViewState extends State<_RankingView> {
                   } else if (state is RankingLoading) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (state is RankingLoaded) {
-                    return SingleChildScrollView(
-                      child: Text(state.result),
+                    final items = state.items;
+
+                    return ListView.builder(
+                      itemCount: items.length,
+                      itemBuilder: (context, index) {
+                        final item = items[index];
+                        return TweenAnimationBuilder<double>(
+                          duration: const Duration(milliseconds: 350),
+                          tween: Tween(begin: 0.0, end: 1.0),
+                          builder: (context, value, child) {
+                            return Opacity(
+                              opacity: value,
+                              child: RankingItemCard(item: item),
+                            );
+                          },
+                        );
+                      },
                     );
                   } else if (state is RankingError) {
                     return Text(

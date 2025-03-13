@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../data/models/ranking_item.dart';
 import '../../domain/get_ranking_use_case.dart';
 
 part 'ranking_event.dart';
@@ -22,9 +23,12 @@ class RankingBloc extends Bloc<RankingEvent, RankingState> {
     emit(RankingLoading());
 
     try {
-      final response = await _getRankingUseCase.execute(event.prompt);
-
-      emit(RankingLoaded(result: response.toString()));
+      try {
+        final items = await _getRankingUseCase.execute(event.prompt);
+        emit(RankingLoaded(items));
+      } catch (e) {
+        emit(RankingError('Error fetching ranking: $e'));
+      }
     } catch (e) {
       emit(RankingError('Error fetching ranking: $e'));
     }
