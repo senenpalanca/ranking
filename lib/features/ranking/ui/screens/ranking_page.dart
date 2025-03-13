@@ -51,7 +51,6 @@ class _RankingViewState extends State<_RankingView> {
               onPressed: () {
                 final prompt = _promptController.text.trim();
                 if (prompt.isNotEmpty) {
-                  // Dispatch an event to the bloc
                   context.read<RankingBloc>().add(FetchRankingEvent(prompt));
                 }
               },
