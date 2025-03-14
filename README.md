@@ -2,6 +2,8 @@
 
 This project is a demonstration of an AI-powered ranking application built using Flutter **3.29**. The app integrates with the OpenAI API to generate rankings based on user prompts. It is designed following a feature-based architecture divided into three layers: **Data**, **Domain**, and **UI**, and is fully prepared for both iOS and Android platforms.
 
+![Screenshot_20250314_150734](https://github.com/user-attachments/assets/f8587e33-8437-47ab-af50-36f6c6ecd0bc)
+
 ## Features
 
 - **Feature-based Architecture:**
