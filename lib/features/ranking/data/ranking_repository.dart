@@ -2,11 +2,15 @@ import 'dart:convert';
 
 import '../../../core/network/api_client.dart';
 
+/// A repository for fetching ranking data using the OpenAI API.
 class RankingRepository {
   final ApiClient apiClient;
 
   RankingRepository(this.apiClient);
 
+  /// Fetches a ranking from the OpenAI API with the given [prompt].
+  ///
+  /// It returns a JSON inside a string representing a ranking sorted by popularity (most popular first).
   Future<String> getRanking(String prompt) async {
     final finalPrompt = """
     You are an expert aggregator. Please respond with a valid JSON array representing a ranking sorted by popularity (most popular first).

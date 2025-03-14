@@ -3,6 +3,7 @@ import 'package:ranking/core/constants/colors.dart';
 
 import '../../../../core/constants/dimens.dart';
 
+/// RankingChip is a StatelessWidget that displays a chip with the ranking position and changes color based on the position.
 class RankingChip extends StatelessWidget {
   final int position;
 

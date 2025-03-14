@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/colors.dart';
 import '../bloc/ranking/ranking_bloc.dart';
 
+// A custom SliverPersistentHeaderDelegate that displays a search header.
+/// It contains a TextField and a button whose icon changes according to the [RankingBloc]'s state.
 class PinnedSearchHeader extends SliverPersistentHeaderDelegate {
   final TextEditingController textController;
   final FocusNode searchFocusNode;
@@ -10,7 +12,6 @@ class PinnedSearchHeader extends SliverPersistentHeaderDelegate {
   PinnedSearchHeader({
     required this.textController,
     required this.searchFocusNode,
-
   });
 
   @override
@@ -31,10 +32,12 @@ class PinnedSearchHeader extends SliverPersistentHeaderDelegate {
       child: Row(
         children: [
           Expanded(
+            //TODO: If reusing this widget, consider creating a custom widget for the text field
             child: TextField(
               focusNode: searchFocusNode,
               controller: textController,
               onChanged: (text) {
+                // Consider removing or debouncing this event to avoid excessive bloc calls.
                 context.read<RankingBloc>().add(ClearRankingEvent());
               },
               onSubmitted: (text) {
@@ -57,21 +60,6 @@ class PinnedSearchHeader extends SliverPersistentHeaderDelegate {
           const SizedBox(width: 4),
           BlocBuilder<RankingBloc, RankingState>(
             builder: (context, state) {
-              Widget childIcon;
-              if (state is RankingLoading) {
-                childIcon = const SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                    strokeWidth: 2,
-                  ),
-                );
-              } else if (state is RankingLoaded || state is RankingError) {
-                childIcon = const Icon(Icons.close, color: Colors.white);
-              } else {
-                childIcon = const Icon(Icons.arrow_forward, color: Colors.white);
-              }
               return ElevatedButton(
                 onPressed: () {
                   if (state is RankingLoaded || state is RankingError) {
@@ -87,13 +75,30 @@ class PinnedSearchHeader extends SliverPersistentHeaderDelegate {
                   shape: const CircleBorder(),
                   backgroundColor: Colors.black,
                 ),
-                child: childIcon,
+                child: _buildButtonIcon(state),
               );
             },
           ),
         ],
       ),
     );
+  }
+
+  /// Returns the appropriate icon based on the [RankingState].
+  Widget _buildButtonIcon(RankingState state) {
+    if (state is RankingLoading) {
+      return const SizedBox(
+        width: 20,
+        height: 20,
+        child: CircularProgressIndicator(
+          color: Colors.white,
+          strokeWidth: 2,
+        ),
+      );
+    } else if (state is RankingLoaded || state is RankingError) {
+      return const Icon(Icons.close, color: Colors.white);
+    }
+    return const Icon(Icons.arrow_forward, color: Colors.white);
   }
 
   @override

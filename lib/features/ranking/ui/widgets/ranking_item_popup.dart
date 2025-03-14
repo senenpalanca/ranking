@@ -4,6 +4,7 @@ import '../../../../core/constants/dimens.dart';
 import '../../data/models/ranking_item.dart';
 import 'rating_stars.dart';
 
+/// A popup that displays a ranking item details.
 class RankingItemPopup extends StatelessWidget {
   final RankingItem item;
 
@@ -60,7 +61,7 @@ class RankingItemPopup extends StatelessWidget {
               const SizedBox(height: Dimens.paddingSmall),
               if (item.rating != null) RatingStars(rating: item.rating!),
               const SizedBox(height: Dimens.paddingSmall),
-        
+
             ],
           ),
         ),
