@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/models/ranking_item.dart';
@@ -8,11 +9,13 @@ import '../../../domain/get_ranking_use_case.dart';
 part 'ranking_event.dart';
 part 'ranking_state.dart';
 
+/// A BLoC that manages the state of the ranking screen.
+/// It fetches the ranking from the repository using the [GetRankingUseCase].
 class RankingBloc extends Bloc<RankingEvent, RankingState> {
   final GetRankingUseCase _getRankingUseCase;
   String _currentQuery = '';
 
-  RankingBloc(this._getRankingUseCase) : super(RankingInitial()) {
+  RankingBloc(this._getRankingUseCase) : super(const RankingInitial()) {
     on<FetchRankingEvent>(_onFetchRanking);
     on<ClearRankingEvent>(_onClearRanking);
   }
@@ -22,7 +25,7 @@ class RankingBloc extends Bloc<RankingEvent, RankingState> {
       Emitter<RankingState> emit,
       ) async {
     _currentQuery = '';
-    emit(RankingInitial());
+    emit(const RankingInitial());
   }
 
   Future<void> _onFetchRanking(
@@ -30,7 +33,7 @@ class RankingBloc extends Bloc<RankingEvent, RankingState> {
       Emitter<RankingState> emit,
       ) async {
     _currentQuery = event.prompt;
-    emit(RankingLoading());
+    emit(const RankingLoading());
 
     try {
       final items = await _getRankingUseCase.execute(event.prompt);
