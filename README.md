@@ -68,21 +68,6 @@ This project is a demonstration of an AI-powered ranking application built using
  **Enhanced Ranking Details:**
  Future improvements might include providing more detailed information for each ranking item and extended prompt editing capabilities.
 
-## Conclusion
-
- This project demonstrates a robust and maintainable Flutter app featuring:
-
- - A clear three-layer architecture (Data, Domain, UI).
- - Dependency injection via an intermediate widget (AppDependencies), with the possibility of per-feature injection.
- - Unified state management using a single RankingBloc that handles both search and ranking data.
- - A minimalistic UI design using Slivers for elegant component integration.
- - Custom-designed widgets for search headers, ranking item cards, and popup modals.
- - OpenAI API integration with a dedicated ApiClient.
- - Cross-platform support for both iOS and Android.
-
- While the current implementation is designed for a single-window experience, future enhancements such as GoRouter integration, a dedicated shimmer library, and more detailed ranking item information are planned.
-
- Feel free to contribute or suggest improvements!
 
 ## Tests
 
@@ -108,3 +93,19 @@ blocTest<RankingBloc, RankingState>(
     verify(() => mockGetRankingUseCase.execute(testPrompt)).called(1);
   },
 );
+
+## Conclusion
+
+ This project demonstrates a robust and maintainable Flutter app featuring:
+
+ - A clear three-layer architecture (Data, Domain, UI).
+ - Dependency injection via an intermediate widget (AppDependencies), with the possibility of per-feature injection.
+ - Unified state management using a single RankingBloc that handles both search and ranking data.
+ - A minimalistic UI design using Slivers for elegant component integration.
+ - Custom-designed widgets for search headers, ranking item cards, and popup modals.
+ - OpenAI API integration with a dedicated ApiClient.
+ - Cross-platform support for both iOS and Android.
+
+ While the current implementation is designed for a single-window experience, future enhancements such as GoRouter integration, a dedicated shimmer library, and more detailed ranking item information are planned.
+
+ Feel free to contribute or suggest improvements!
