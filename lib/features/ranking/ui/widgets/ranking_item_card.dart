@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/constants/dimens.dart';
 import '../../data/models/ranking_item.dart';
 import 'rating_stars.dart';
 
@@ -13,40 +14,57 @@ class RankingItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2,
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      elevation: 1,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: const BorderSide(
+          color: Colors.grey,
+          width: 0.5,
+        ),
+      ),
+      color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
+        padding: const EdgeInsets.all(Dimens.paddingMedium),
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              item.title,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 8),
-
-            Text(
-              item.description,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-
-            if (item.imageUrl != null) ...[
-              const SizedBox(height: 12),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  item.imageUrl!,
-                  errorBuilder: (ctx, _, __) => const Icon(Icons.broken_image),
+            Padding(
+              padding: const EdgeInsets.only(right: Dimens.paddingMedium),
+              child: Text(
+                item.position.toString(),
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
                 ),
               ),
-            ],
-
-            if (item.rating != null) ...[
-              const SizedBox(height: 12),
-              RatingStars(rating: item.rating!),
-            ],
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    item.title,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: Colors.black,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                  const SizedBox(height: Dimens.paddingSmall),
+                  Text(
+                    item.description,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Colors.grey,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                  ),
+                  const SizedBox(height: Dimens.paddingSmall),
+                  if (item.rating != null)
+                    RatingStars(rating: item.rating!),
+                ],
+              ),
+            ),
           ],
         ),
       ),

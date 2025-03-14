@@ -1,13 +1,13 @@
 class RankingItem {
   final String title;
   final String description;
-  final String? imageUrl;
   final double? rating;
+  final int? position;
 
   RankingItem({
     required this.title,
     required this.description,
-    this.imageUrl,
+    required this.position,
     this.rating,
   });
 
@@ -15,7 +15,7 @@ class RankingItem {
     return RankingItem(
       title: json['title'] as String,
       description: json['description'] as String,
-      imageUrl: json['imageUrl'] as String?,
+      position: json['position'] as int?,
       rating: (json['rating'] as num?)?.toDouble(),
     );
   }

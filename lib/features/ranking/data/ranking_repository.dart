@@ -11,14 +11,14 @@ class RankingRepository {
     The user prompt is: "$prompt"
     
     Instructions:
-    1. Detect the language used in the user's prompt and respond in that same language.
-    2. The array must contain less than 1000 items, but try to show at least 10 results, if possible.
-    3. Each item should include at least "title" (string) and "description" (string).
-    4. If an image is available, include "imageUrl" (string). Otherwise, omit "imageUrl".
-    5. If a rating is available, it must be an integer from 1 to 5. Otherwise, omit "rating".
-    6. Provide no text outside the JSON array. Do not include backticks or code fences.
-    7. Ensure the final output is valid JSON (no trailing commas, no extra keys, no explanations).
-    
+    1. Detect the language used in the user's prompt and respond in that same language. This is very important.
+    2. The array must contain less than 100 items.
+    3. Each item should include at least "title" (string), "description" (string), and  "position" (int).
+    4. If a rating is available, it must be an integer from 1 to 5. Otherwise, omit "rating".
+    5. Provide no text outside the JSON array. Do not include backticks or code fences.
+    6. Ensure the final output is valid JSON (no trailing commas, no extra keys, no explanations).
+    7. Please, the JSON content should be in the user's prompt language, and all the entries of the JSON have to be in the same language.
+    8. Try to add as much information as possible inside description field.
     Do not include any introductory text, disclaimers, or explanations beyond the valid JSON array.
     """;
 
@@ -31,7 +31,7 @@ class RankingRepository {
           "content": finalPrompt,
         }
       ],
-      "max_tokens": 300
+      "max_tokens": 3000
     };
 
     final responseData = await apiClient.post(endpoint, requestBody);
