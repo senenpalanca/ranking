@@ -3,7 +3,7 @@ import '../../../../core/constants/dimens.dart';
 import '../../data/models/ranking_item.dart';
 import 'rating_stars.dart';
 
-class RankingItemCard extends StatelessWidget {
+class RankingItemCard extends StatefulWidget {
   final RankingItem item;
 
   const RankingItemCard({
@@ -12,59 +12,90 @@ class RankingItemCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _RankingItemCardState createState() => _RankingItemCardState();
+}
+
+class _RankingItemCardState extends State<RankingItemCard> {
+  bool isExpanded = false;
+
+  void _toggleExpand() {
+    setState(() {
+      isExpanded = !isExpanded;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 1,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: const BorderSide(
-          color: Colors.grey,
-          width: 0.5,
-        ),
-      ),
-      color: Colors.white,
-      child: Padding(
+    return GestureDetector(
+      onTap: _toggleExpand,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 100),
+        curve: Curves.easeInOut,
         padding: const EdgeInsets.all(Dimens.paddingMedium),
-        child: Row(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.grey, width: 0.5),
+        ),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(right: Dimens.paddingMedium),
-              child: Text(
-                item.position.toString(),
-                style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: Dimens.paddingSmall),
+                  child: Text(
+                    widget.item.position.toString(),
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    item.title,
+                Expanded(
+                  child: Text(
+                    widget.item.title,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       color: Colors.black,
                     ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
-                  const SizedBox(height: Dimens.paddingSmall),
+                ),
+              ],
+            ),
+            const SizedBox(height: Dimens.paddingSmall),
+            AnimatedCrossFade(
+              firstChild: Text(
+                widget.item.description,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Colors.grey,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+              secondChild: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Text(
-                    item.description,
+                    widget.item.description,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Colors.grey,
+                      color: Colors.grey[800],
                     ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
                   ),
-                  const SizedBox(height: Dimens.paddingSmall),
-                  if (item.rating != null)
-                    RatingStars(rating: item.rating!),
+
                 ],
               ),
+              crossFadeState: isExpanded
+                  ? CrossFadeState.showSecond
+                  : CrossFadeState.showFirst,
+              duration: const Duration(milliseconds: 300),
             ),
+            if (widget.item.rating != null) ...[
+              const SizedBox(height: Dimens.paddingSmall),
+              RatingStars(rating: widget.item.rating!),
+            ],
           ],
         ),
       ),
