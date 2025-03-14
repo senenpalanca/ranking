@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../domain/get_ranking_use_case.dart';
-import '../bloc/ranking_bloc.dart';
+import '../bloc/ranking/ranking_bloc.dart';
 import '../widgets/pinned_search_header.dart';
 import '../widgets/ranking_item_card.dart';
 import '../widgets/shimmer_sliver.dart';

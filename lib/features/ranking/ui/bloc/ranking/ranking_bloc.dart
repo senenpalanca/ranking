@@ -3,8 +3,8 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/models/ranking_item.dart';
-import '../../domain/get_ranking_use_case.dart';
+import '../../../data/models/ranking_item.dart';
+import '../../../domain/get_ranking_use_case.dart';
 
 part 'ranking_event.dart';
 part 'ranking_state.dart';
