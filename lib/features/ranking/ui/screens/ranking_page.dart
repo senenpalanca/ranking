@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ranking/features/ranking/data/models/ranking_item.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/dimens.dart';
@@ -7,6 +8,7 @@ import '../../domain/get_ranking_use_case.dart';
 import '../bloc/ranking/ranking_bloc.dart';
 import '../widgets/pinned_search_header.dart';
 import '../widgets/ranking_item_card.dart';
+import '../widgets/ranking_item_popup.dart';
 import '../widgets/shimmer_sliver.dart';
 
 class RankingPage extends StatelessWidget {
@@ -33,6 +35,14 @@ class _RankingView extends StatefulWidget {
 
 class _RankingViewState extends State<_RankingView> {
   final TextEditingController _promptController = TextEditingController();
+  final FocusNode _searchFocusNode = FocusNode();
+
+  @override
+  void dispose() {
+    _promptController.dispose();
+    _searchFocusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,6 +107,7 @@ class _RankingViewState extends State<_RankingView> {
                 pinned: true,
                 delegate: PinnedSearchHeader(
                   textController: _promptController,
+                  searchFocusNode: _searchFocusNode,
                 ),
               ),
               BlocBuilder<RankingBloc, RankingState>(
@@ -131,7 +142,7 @@ class _RankingViewState extends State<_RankingView> {
                               builder: (context, value, child) {
                                 return Opacity(
                                   opacity: value,
-                                  child: RankingItemCard(item: item),
+                                  child: RankingItemCard(item: item, onTap: () => _onTapItem(item, context),),
                                 );
                               },
                             ),
@@ -159,6 +170,15 @@ class _RankingViewState extends State<_RankingView> {
           ),
         ),
       ),
+    );
+  }
+
+
+
+  void _onTapItem(item, context) {
+    showDialog(
+      context: context,
+      builder: (context) => RankingItemPopup(item: item),
     );
   }
 }

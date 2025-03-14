@@ -5,9 +5,12 @@ import '../bloc/ranking/ranking_bloc.dart';
 
 class PinnedSearchHeader extends SliverPersistentHeaderDelegate {
   final TextEditingController textController;
+  final FocusNode searchFocusNode;
 
   PinnedSearchHeader({
     required this.textController,
+    required this.searchFocusNode,
+
   });
 
   @override
@@ -29,13 +32,14 @@ class PinnedSearchHeader extends SliverPersistentHeaderDelegate {
         children: [
           Expanded(
             child: TextField(
+              focusNode: searchFocusNode,
               controller: textController,
               onChanged: (text) {
                 context.read<RankingBloc>().add(ClearRankingEvent());
               },
               onSubmitted: (text) {
                 context.read<RankingBloc>().add(FetchRankingEvent(text));
-                FocusScope.of(context).unfocus();
+                searchFocusNode.unfocus();
               },
               decoration: InputDecoration(
                 hintText: 'Enter your prompt',
@@ -73,9 +77,10 @@ class PinnedSearchHeader extends SliverPersistentHeaderDelegate {
                   if (state is RankingLoaded || state is RankingError) {
                     textController.clear();
                     context.read<RankingBloc>().add(ClearRankingEvent());
+                    searchFocusNode.unfocus();
                   } else {
                     context.read<RankingBloc>().add(FetchRankingEvent(textController.text));
-                    FocusScope.of(context).unfocus();
+                    searchFocusNode.unfocus();
                   }
                 },
                 style: ElevatedButton.styleFrom(
