@@ -77,8 +77,7 @@ class _RankingViewState extends State<_RankingView> {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            ...[
-                            const SizedBox(height: 5),
+                            const SizedBox(height: 6),
                             Opacity(
                               opacity: fadeValue,
                               child: Text(
@@ -90,7 +89,6 @@ class _RankingViewState extends State<_RankingView> {
                                 ),
                               ),
                             ),
-                            ]
                           ],
                         ),
                       ),
@@ -117,9 +115,10 @@ class _RankingViewState extends State<_RankingView> {
                     return SliverFillRemaining(
                       hasScrollBody: false,
                       child: Center(
-                        child: Text(
-                          'Enter a prompt to get ranking.',
-                          style: Theme.of(context).textTheme.bodyLarge,
+                        child: Image.asset(
+                          'assets/images/empty_box.png',
+                          width: 150,
+                          height: 150,
                         ),
                       ),
                     );

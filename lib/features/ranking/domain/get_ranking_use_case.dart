@@ -10,7 +10,6 @@ class GetRankingUseCase {
 
   Future<List<RankingItem>> execute(String prompt) async {
     final responseText = await _repository.getRanking(prompt);
-    print(responseText);
     return _parseResponse(responseText);
   }
 

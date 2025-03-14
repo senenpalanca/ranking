@@ -1,11 +1,32 @@
-
 import 'package:flutter/material.dart';
-
 import '../../../../core/constants/dimens.dart';
 
-class ShimmerSliver extends StatelessWidget {
+class ShimmerSliver extends StatefulWidget {
   final int count;
   const ShimmerSliver({Key? key, required this.count}) : super(key: key);
+
+  @override
+  _ShimmerSliverState createState() => _ShimmerSliverState();
+}
+
+class _ShimmerSliverState extends State<ShimmerSliver>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1000),
+    )..repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +34,14 @@ class ShimmerSliver extends StatelessWidget {
       delegate: SliverChildBuilderDelegate(
             (context, index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: Dimens.paddingMedium, vertical: Dimens.paddingSmall),
-            child: TweenAnimationBuilder<double>(
-              duration: const Duration(milliseconds: 1000),
-              tween: Tween(begin: 0.6, end: 0.9),
-              curve: Curves.easeInOut,
-              builder: (context, value, child) {
+            padding: const EdgeInsets.symmetric(
+              horizontal: Dimens.paddingMedium,
+              vertical: Dimens.paddingSmall,
+            ),
+            child: AnimatedBuilder(
+              animation: _controller,
+              builder: (context, child) {
+                final value = 0.6 + (0.3 * _controller.value);
                 final colorValue = (value * 255).toInt();
                 return Container(
                   height: 120,
@@ -38,7 +61,7 @@ class ShimmerSliver extends StatelessWidget {
             ),
           );
         },
-        childCount: count,
+        childCount: widget.count,
       ),
     );
   }

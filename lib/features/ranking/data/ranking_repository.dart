@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../../../core/network/api_client.dart';
 
 class RankingRepository {
@@ -37,6 +39,6 @@ class RankingRepository {
     final responseData = await apiClient.post(endpoint, requestBody);
     // For OpenAI, `choices[0].message.content` holds the main text output.
     final content = responseData['choices'][0]['message']['content'];
-    return content;
+    return utf8.decode(content.codeUnits);
   }
 }
