@@ -6,22 +6,19 @@ import 'features/ranking/ui/screens/ranking_page.dart';
 void main() {
   runApp(
     const AppDependencies(
-      child: MyApp(),
+      child: RankingApp(),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class RankingApp extends StatelessWidget {
+  const RankingApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: const RankingPage(),
+    return const MaterialApp(
+      title: 'RankingApp',
+      home: RankingPage(),
     );
   }
 }
