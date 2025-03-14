@@ -6,10 +6,10 @@ class ShimmerSliver extends StatefulWidget {
   const ShimmerSliver({Key? key, required this.count}) : super(key: key);
 
   @override
-  _ShimmerSliverState createState() => _ShimmerSliverState();
+  ShimmerSliverState createState() => ShimmerSliverState();
 }
 
-class _ShimmerSliverState extends State<ShimmerSliver>
+class ShimmerSliverState extends State<ShimmerSliver>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 

@@ -33,13 +33,6 @@ class _RankingView extends StatefulWidget {
 class _RankingViewState extends State<_RankingView> {
   final TextEditingController _promptController = TextEditingController();
 
-  void _onSearch() {
-    final prompt = _promptController.text.trim();
-    if (prompt.isNotEmpty) {
-      context.read<RankingBloc>().add(FetchRankingEvent(prompt));
-    }
-    FocusScope.of(context).unfocus();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +97,6 @@ class _RankingViewState extends State<_RankingView> {
               SliverPersistentHeader(
                 pinned: true,
                 delegate: PinnedSearchHeader(
-                  onSearch: _onSearch,
                   textController: _promptController,
                 ),
               ),
