@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/colors.dart';
+import '../../../../core/constants/dimens.dart';
 import '../bloc/ranking/ranking_bloc.dart';
 
 // A custom SliverPersistentHeaderDelegate that displays a search header.
@@ -17,7 +18,7 @@ class PinnedSearchHeader extends SliverPersistentHeaderDelegate {
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: Dimens.paddingMedium, vertical: Dimens.paddingSmall),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.center,
@@ -48,7 +49,7 @@ class PinnedSearchHeader extends SliverPersistentHeaderDelegate {
                 hintText: 'Enter your prompt',
                 filled: true,
                 fillColor: Colors.grey[200],
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                contentPadding: const EdgeInsets.symmetric(horizontal: Dimens.paddingMedium, vertical: 12),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,
@@ -57,7 +58,7 @@ class PinnedSearchHeader extends SliverPersistentHeaderDelegate {
               style: const TextStyle(color: Colors.black),
             ),
           ),
-          const SizedBox(width: 4),
+          const SizedBox(width: Dimens.paddingXSmall),
           BlocBuilder<RankingBloc, RankingState>(
             builder: (context, state) {
               return ElevatedButton(

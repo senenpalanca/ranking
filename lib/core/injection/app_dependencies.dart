@@ -6,6 +6,7 @@ import '../../features/ranking/domain/get_ranking_use_case.dart';
 import '../constants/constants.dart';
 import '../network/api_client.dart';
 
+/// AppDependencies is a StatelessWidget that provides the app dependencies by using the Provider package.
 class AppDependencies extends StatelessWidget {
   final Widget child;
 

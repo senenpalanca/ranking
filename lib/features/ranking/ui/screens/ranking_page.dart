@@ -12,6 +12,7 @@ import '../widgets/ranking_item_card.dart';
 import '../widgets/ranking_item_popup.dart';
 import '../widgets/shimmer_sliver.dart';
 
+
 class RankingPage extends StatelessWidget {
   const RankingPage({Key? key}) : super(key: key);
 
