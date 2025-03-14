@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ranking/features/ranking/ui/widgets/ranking_chip.dart';
 import '../../../../core/constants/dimens.dart';
 import '../../data/models/ranking_item.dart';
 import 'rating_stars.dart';
@@ -43,16 +44,11 @@ class _RankingItemCardState extends State<RankingItemCard> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
+                if(widget.item.position != null) Padding(
                   padding: const EdgeInsets.only(right: Dimens.paddingSmall),
-                  child: Text(
-                    widget.item.position.toString(),
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
+                  child: RankingChip(position: widget.item.position!),
                 ),
+
                 Expanded(
                   child: Text(
                     widget.item.title,
@@ -75,17 +71,11 @@ class _RankingItemCardState extends State<RankingItemCard> {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
               ),
-              secondChild: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.item.description,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Colors.grey[800],
-                    ),
-                  ),
-
-                ],
+              secondChild: Text(
+                widget.item.description,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Colors.grey[800],
+                ),
               ),
               crossFadeState: isExpanded
                   ? CrossFadeState.showSecond
@@ -102,3 +92,5 @@ class _RankingItemCardState extends State<RankingItemCard> {
     );
   }
 }
+
+

@@ -6,3 +6,5 @@ class FetchRankingEvent extends RankingEvent {
   final String prompt;
   FetchRankingEvent(this.prompt);
 }
+
+class ClearRankingEvent extends RankingEvent {}
