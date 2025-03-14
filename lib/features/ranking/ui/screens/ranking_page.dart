@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/colors.dart';
+import '../../../../core/constants/dimens.dart';
 import '../../domain/get_ranking_use_case.dart';
 import '../bloc/ranking/ranking_bloc.dart';
 import '../widgets/pinned_search_header.dart';
@@ -33,12 +34,11 @@ class _RankingView extends StatefulWidget {
 class _RankingViewState extends State<_RankingView> {
   final TextEditingController _promptController = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-       color: AppColors.background,
+        color: AppColors.background,
         child: SafeArea(
           child: CustomScrollView(
             slivers: [
@@ -56,7 +56,7 @@ class _RankingViewState extends State<_RankingView> {
                     fadeValue = fadeValue.clamp(0.0, 1.0);
 
                     return FlexibleSpaceBar(
-                      titlePadding: const EdgeInsets.only(left: 16, bottom: 16, top: 16),
+                      titlePadding: const EdgeInsets.only(left: Dimens.paddingMedium, bottom: Dimens.paddingMedium, top: Dimens.paddingMedium),
                       title: SingleChildScrollView(
                         physics: const NeverScrollableScrollPhysics(),
                         child: Column(
@@ -93,14 +93,12 @@ class _RankingViewState extends State<_RankingView> {
                   },
                 ),
               ),
-
               SliverPersistentHeader(
                 pinned: true,
                 delegate: PinnedSearchHeader(
                   textController: _promptController,
                 ),
               ),
-
               BlocBuilder<RankingBloc, RankingState>(
                 builder: (context, state) {
                   if (state is RankingInitial) {
@@ -120,12 +118,12 @@ class _RankingViewState extends State<_RankingView> {
                     final items = state.items;
                     return SliverList(
                       delegate: SliverChildBuilderDelegate(
-                            (context, index) {
+                        (context, index) {
                           final item = items[index];
                           return Padding(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 8,
+                              horizontal:  Dimens.paddingMedium,
+                              vertical:  Dimens.paddingSmall,
                             ),
                             child: TweenAnimationBuilder<double>(
                               duration: const Duration(milliseconds: 500),
@@ -164,4 +162,3 @@ class _RankingViewState extends State<_RankingView> {
     );
   }
 }
-
