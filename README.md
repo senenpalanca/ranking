@@ -83,3 +83,28 @@ This project is a demonstration of an AI-powered ranking application built using
  While the current implementation is designed for a single-window experience, future enhancements such as GoRouter integration, a dedicated shimmer library, and more detailed ranking item information are planned.
 
  Feel free to contribute or suggest improvements!
+
+## Tests
+
+### BLoC Tests
+
+We use the `bloc_test` package along with `mocktail` to unit test the `RankingBloc`. The tests simulate events (such as `FetchRankingEvent` and `ClearRankingEvent`) and assert that the Bloc emits the expected states (e.g., `RankingLoading`, `RankingLoaded`, `RankingError`, and `RankingInitial`). A mock version of the `GetRankingUseCase` is used to simulate both successful and error responses from the API. This ensures that our Bloc’s state management works correctly, including handling query cancellations.
+
+Example Bloc Test:
+```dart
+blocTest<RankingBloc, RankingState>(
+  'emits [RankingLoading, RankingLoaded] when FetchRankingEvent is added and use case returns data',
+  build: () {
+    when(() => mockGetRankingUseCase.execute(testPrompt))
+        .thenAnswer((_) async => testItems);
+    return rankingBloc;
+  },
+  act: (bloc) => bloc.add(const FetchRankingEvent(testPrompt)),
+  expect: () => [
+    RankingLoading(),
+    RankingLoaded(testItems),
+  ],
+  verify: (_) {
+    verify(() => mockGetRankingUseCase.execute(testPrompt)).called(1);
+  },
+);
