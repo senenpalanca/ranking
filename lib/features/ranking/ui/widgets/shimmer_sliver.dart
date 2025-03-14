@@ -41,6 +41,7 @@ class _ShimmerSliverState extends State<ShimmerSliver>
             child: AnimatedBuilder(
               animation: _controller,
               builder: (context, child) {
+                //  Could be used shimmer package as well
                 final value = 0.6 + (0.3 * _controller.value);
                 final colorValue = (value * 255).toInt();
                 return Container(
